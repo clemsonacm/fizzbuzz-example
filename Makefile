@@ -2,6 +2,8 @@
 # Check the README.md for usage instructions.
 
 # Use bash as the execution shell, not sh.
+CC=clang -std=c11
+CFLAGS=-g -Wall
 SHELL := /bin/bash
 
 # ========= #
@@ -39,7 +41,7 @@ HANDIN_FILES =
 # USER is your username, MACHINE is a lab machine (check the SoC motd for more
 # of them), and TEST_DIRECTORY is where all testing happens (it's created in your
 # home directory)
-REMOTE_USER =
+REMOTE_USER = robertu
 REMOTE_MACHINE = joey24
 REMOTE_TEST_DIRECTORY = magic-project-tests
 
@@ -48,7 +50,7 @@ REMOTE_TEST_DIRECTORY = magic-project-tests
 # ====================== #
 
 # Called with just "make". Make sure it works!
-default: all
+default: test
 
 # ===================== #
 # DON'T MESS WITH THESE #
@@ -110,15 +112,15 @@ labtest:
 	@echo "Nothing to execute. Update the \"labtest\" rule!"
 
 # Run with just "make". Should compile things but run nothing.
-all:
-	@echo "Nothing to build. Update the \"all\" rule!"
+all: fizzbuzz
+	
 
 # Run with "make test". Best test everything!
-test:
-	@echo "Nothing to test. Update the \"test\" rule!"
+test: fizzbuzz
+	bats -t tests.bats
 
 # =============================== #
 # PUT YOUR CUSTOM MAKE RULES HERE #
 # =============================== #
 # Then you can reference them above.
-
+fizzbuzz: fizzbuzz.c
